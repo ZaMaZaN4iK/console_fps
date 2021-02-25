@@ -2,9 +2,9 @@
 #include <iomanip>
 #include <sstream>
 #include <cmath>
-#include <chrono>
 #include <vector>
 #include <algorithm>
+#include <ctime>
 #include <ncursesw/ncurses.h>
 
 int nScreenWidth = 120;
@@ -52,16 +52,16 @@ int main(void) {
 	map += L"#..............#";
 	map += L"################";
 
-	auto tp1 = std::chrono::steady_clock::now();
-	auto tp2 = std::chrono::steady_clock::now();
+	std::time_t tp1 = std::time(nullptr);
+	std::time_t tp2 = std::time(nullptr);
 
 	bool shouldRun = true;
 	// Game room
 	while(shouldRun) {
-		tp2 = std::chrono::steady_clock::now();
-		std::chrono::duration<float> elapsedTime = tp2 - tp1;
+		tp2 = std::time(nullptr);
+		auto elapsedTime = tp2 - tp1;
 		tp1 = tp2;
-		float fElapsedTime = elapsedTime.count(); // in milliseconds
+		float fElapsedTime = elapsedTime; // in milliseconds
 		// resize terminal
 		getmaxyx(stdscr, termHeight, termWidth);
 		while (termHeight != nScreenHeight || termWidth != nScreenWidth) {
